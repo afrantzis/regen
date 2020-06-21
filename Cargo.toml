@@ -1,0 +1,21 @@
+[package]
+name = "regen"
+version = "0.1.0"
+authors = ["Alexandros Frantzis <alf82@freemail.gr>"]
+edition = "2018"
+description = "A library and command-line tool for generating all strings matching a regular expression"
+license = "MPL-2.0"
+repository = "https://github.com/afrantzis/regen"
+documentation = "https://docs.rs/regen"
+homepage = "https://github.com/afrantzis/regen"
+readme = "README.md"
+categories = ["command-line-utilities"]
+keywords = ["regex", "pattern", "generator"]
+exclude = ["/.github/**"]
+
+[dependencies]
+regex-syntax = "0.6"
+getopts = "0.2"
+
+[profile.release]
+lto = true
