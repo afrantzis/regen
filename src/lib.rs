@@ -177,7 +177,7 @@ impl Generator {
     /// let mut gen = Generator::new("[a-z]{2}")?;
     /// # Ok::<(), Box<dyn std::error::Error>>(())
     /// ```
-    pub fn new(s: &str) -> Result<Self> {
+    pub fn new<T : AsRef<str> + ?Sized>(s: &T) -> Result<Self> {
         Generator::new_with_options(s, &GeneratorOptions::default())
     }
 
@@ -191,13 +191,16 @@ impl Generator {
     /// let mut gen = Generator::new_with_options("[a-c]*", &opts)?;
     /// # Ok::<(), Box<dyn std::error::Error>>(())
     /// ```
-    pub fn new_with_options(s: &str, opts: &GeneratorOptions) -> Result<Self> {
+    pub fn new_with_options<T: AsRef<str> + ?Sized>(
+        s: &T, 
+        opts: &GeneratorOptions
+    ) -> Result<Self> {
         let opts = opts.clone();
         let hir =
             ParserBuilder::new()
                 .allow_invalid_utf8(true)
                 .build()
-                .parse(s)?;
+                .parse(s.as_ref())?;
         let mut iterator = hir::visit(&hir, HirVisitor::new())?;
         if opts.max_length != usize::max_value() {
             iterator.set_max_elements_hint(opts.max_length);
