@@ -178,7 +178,7 @@ impl Generator {
     /// # Ok::<(), Box<dyn std::error::Error>>(())
     /// ```
     pub fn new<T : AsRef<str> + ?Sized>(s: &T) -> Result<Self> {
-        Generator::new_with_options(s.as_ref(), &GeneratorOptions::default())
+        Generator::new_with_options(s, &GeneratorOptions::default())
     }
 
     /// Creates a `Generator` with the provided options.
